@@ -1,0 +1,15 @@
+{
+  "name": "@zemd/react-slottable",
+  "version": "1.0.0",
+  "description": "Foundation for component libraries with highly customizable approach",
+  "type": "module",
+  "main": "index.js",
+  "module": "index.mjs",
+  "typings": "index.d.ts",
+  "keywords": ["react", "components", "library", "slottable", "slots", "deeply customized"],
+  "author": "Dmytro Zelenetskyi <hey@codeandgin.co>",
+  "license": "GPL-3.0-or-later",
+  "peerDependencies": {
+    "react": "*"
+  }
+}
