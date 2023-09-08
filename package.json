@@ -6,7 +6,14 @@
   "main": "index.js",
   "module": "index.mjs",
   "typings": "index.d.ts",
-  "keywords": ["react", "components", "library", "slottable", "slots", "deeply customized"],
+  "keywords": [
+    "react",
+    "components",
+    "library",
+    "slottable",
+    "slots",
+    "deeply customized"
+  ],
   "author": "Dmytro Zelenetskyi <hey@codeandgin.co>",
   "license": "GPL-3.0-or-later",
   "peerDependencies": {
