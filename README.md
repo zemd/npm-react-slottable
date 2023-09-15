@@ -6,12 +6,19 @@ With it, you can build your own complex component libraries, composing different
 
 Sounds interesting? Just look at the example of such a `Button` built with the library:
 
+At first install it:
+```bash
+npm install @zemd/react-slottable
+```
+
+then:
+
 ```typescript
 import {
   type TSlottablePropsFactory,
   createSlottableComponent,
   useSlot,
-} from "react-slottable";
+} from "@zemd/react-slottable";
 import clsx from "clsx";
 
 type TButtonProps = TSlottablePropsFactory<
@@ -135,6 +142,10 @@ export function HomePage() {
 ```
 
 The package exposes three essential parts: `createSlottableComponent`, the `useSlot` hook, and the `TSlottablePropsFactory` typescript type. Combining them together, you get a backbone for your fantastic components.
+
+## Typescript
+
+The package includes typescript declarations, and can hint everything you need for creating and using components.
 
 ## License
 
