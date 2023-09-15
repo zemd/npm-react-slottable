@@ -1,4 +1,4 @@
-import { ElementType, ComponentProps, CSSProperties, Ref, ComponentPropsWithRef, ForwardedRef, ForwardRefRenderFunction } from 'react';
+import { ElementType, ComponentProps, CSSProperties, Ref, ComponentPropsWithRef, PropsWithChildren, ReactNode, ForwardedRef, ForwardRefRenderFunction } from 'react';
 
 type TClassValue = TClassArray | TClassMap | string | number | boolean | null | undefined;
 type TClassArray = Array<TClassValue>;
@@ -34,11 +34,13 @@ type TComponentWithSlotsAndProps<TArgSlotMap extends TSlotMap<string>, TArgSlotP
 type TComponentDefProp<TComponentType extends ElementType = ElementType> = {
     component?: TComponentType;
 };
+type PropsWithComponent<TComponentType extends ElementType, TProps = unknown> = TComponentDefProp<TComponentType> & Omit<TProps, "component">;
 type TCommonProps = {
     className?: string;
     style?: CSSProperties;
     ref?: Ref<any>;
 };
+type TSlotProp<TArgComponentType extends ElementType, TArgExtraProps = unknown> = TArgExtraProps & TComponentDefProp<TArgComponentType> & ComponentPropsWithRef<TArgComponentType> & Record<string, unknown>;
 type TSlottable<TArgComponentConf extends TComponentConfig, TArgStaticProps> = TOverridableComponent<TArgComponentConf> & {
     displayName: string;
 } & TArgStaticProps;
@@ -47,6 +49,20 @@ type TSlottableConfigFactory<TArgProps, TArgComponentType extends ElementType> =
     defaultComponent: TArgComponentType;
 };
 type TSlottableFactory<TArgProps extends {} = {}, TArgComponentType extends ElementType = ElementType, TArgStaticProps = {}> = TSlottable<TSlottableConfigFactory<TArgProps, TArgComponentType>, TArgStaticProps>;
+type TObjectSlotDef = {
+    [K in string]: ElementType;
+};
+type TMaybeSlotDef = string | TObjectSlotDef;
+type TSlottablePropsFactory<TArgProps, TArgSlotDef extends TMaybeSlotDef = {}> = PropsWithChildren<{
+    slots?: {
+        [K in TArgSlotDef extends string ? TArgSlotDef : keyof TArgSlotDef]?: TArgSlotDef extends TObjectSlotDef ? TArgSlotDef[K] : ElementType;
+    };
+    slotProps?: {
+        [K in TArgSlotDef extends string ? TArgSlotDef : keyof TArgSlotDef]?: TArgSlotDef extends TObjectSlotDef ? ComponentProps<TArgSlotDef[K]> : ComponentProps<ElementType>;
+    };
+} & Omit<TCommonProps, "ref"> & TArgProps & {
+    component?: ElementType;
+} & Partial<Record<TArgSlotDef extends string ? TArgSlotDef : keyof TArgSlotDef, ReactNode>>>;
 
 type TMergeFn = (className: string) => string;
 declare function useSlot<TArgThisSlotName extends string, TArgComponentType extends ElementType, TArgSlotMap extends TSlotMap<TArgThisSlotName>, TArgSlotProps extends TSlotProps<TArgThisSlotName, TArgSlotMap, TArgComponentType>, TResultComponentType extends TSlotComponentType<TArgThisSlotName, TArgSlotMap, TArgComponentType>, TArgProps extends TCommonProps & TComponentDefProp<TResultComponentType> & TComponentWithSlotsAndProps<TArgSlotMap, TArgSlotProps> & ComponentProps<TResultComponentType> & Record<string, unknown>>(name: TArgThisSlotName, params: (TArgThisSlotName extends "root" ? {
@@ -65,4 +81,4 @@ declare function useSlot<TArgThisSlotName extends string, TArgComponentType exte
 
 declare function createSlottableComponent<TArgComponentType extends ElementType, TArgProps extends Record<string, unknown> = {}, TArgRefInstance = unknown, TArgStaticProps = {}, TReturns extends TSlottableFactory<TArgProps, TArgComponentType, TArgStaticProps> = TSlottableFactory<TArgProps, TArgComponentType, TArgStaticProps>>(render: ForwardRefRenderFunction<TArgRefInstance, TArgProps>, displayName?: string): TReturns;
 
-export { createSlottableComponent, useSlot };
+export { type PropsWithComponent, type TCommonProps, type TComponentConfig, type TComponentDefProp, type TComponentWithSlotsAndProps, type TSlotComponentType, type TSlotMap, type TSlotProp, type TSlotProps, type TSlottable, type TSlottableConfigFactory, type TSlottableFactory, type TSlottablePropsFactory, createSlottableComponent, useSlot };
