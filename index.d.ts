@@ -74,7 +74,7 @@ declare function useSlot<TArgThisSlotName extends string, TArgComponentType exte
     component: TArgComponentType;
     props: TArgProps;
     extraProps?: TCommonProps & ComponentProps<TResultComponentType>;
-    classNameMergeFn: TMergeFn;
+    classNameMergeFn?: TMergeFn;
 }): [TResultComponentType, {
     className: string;
 } & TArgSlotProps[TArgThisSlotName] & ComponentProps<TResultComponentType> & Record<string, unknown>];
