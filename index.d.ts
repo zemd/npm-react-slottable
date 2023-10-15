@@ -3,6 +3,7 @@ import { ElementType, ComponentProps, CSSProperties, Ref, ComponentPropsWithRef,
 type TClassValue = TClassArray | TClassMap | string | number | boolean | null | undefined;
 type TClassArray = Array<TClassValue>;
 type TClassMap = Record<string, any>;
+declare const clsx: (...inputs: TClassValue[]) => string;
 
 interface TComponentConfig {
     props: {};
@@ -79,6 +80,9 @@ declare function useSlot<TArgThisSlotName extends string, TArgComponentType exte
     className: string;
 } & TArgSlotProps[TArgThisSlotName] & ComponentProps<TResultComponentType> & Record<string, unknown>];
 
-declare function createSlottableComponent<TArgComponentType extends ElementType, TArgProps extends Record<string, unknown> = {}, TArgRefInstance = unknown, TArgStaticProps = {}, TReturns extends TSlottableFactory<TArgProps, TArgComponentType, TArgStaticProps> = TSlottableFactory<TArgProps, TArgComponentType, TArgStaticProps>>(render: ForwardRefRenderFunction<TArgRefInstance, TArgProps>, displayName?: string): TReturns;
+declare function slottable<TArgComponentType extends ElementType, TArgProps extends Record<string, unknown> = {}, TArgRefInstance = unknown, TArgStaticProps = {}, TReturns extends TSlottableFactory<TArgProps, TArgComponentType, TArgStaticProps> = TSlottableFactory<TArgProps, TArgComponentType, TArgStaticProps>>(render: ForwardRefRenderFunction<TArgRefInstance, TArgProps>, displayName?: string): TReturns;
 
-export { type PropsWithComponent, type TCommonProps, type TComponentConfig, type TComponentDefProp, type TComponentWithSlotsAndProps, type TSlotComponentType, type TSlotMap, type TSlotProp, type TSlotProps, type TSlottable, type TSlottableConfigFactory, type TSlottableFactory, type TSlottablePropsFactory, createSlottableComponent, useSlot };
+type TInput = Record<string, any>;
+declare const mergeProps: <TReturn extends Record<string, any>>(...inputs: Array<TInput | null | undefined>) => TReturn;
+
+export { type PropsWithComponent, type TCommonProps, type TComponentConfig, type TComponentDefProp, type TComponentWithSlotsAndProps, type TSlotComponentType, type TSlotMap, type TSlotProp, type TSlotProps, type TSlottable, type TSlottableConfigFactory, type TSlottableFactory, type TSlottablePropsFactory, clsx, slottable as createSlottableComponent, mergeProps, slottable, useSlot };

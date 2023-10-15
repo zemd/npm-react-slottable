@@ -18,8 +18,8 @@ import {
   type TSlottablePropsFactory,
   createSlottableComponent,
   useSlot,
+  clsx,
 } from "@zemd/react-slottable";
-import clsx from "clsx";
 
 type TButtonProps = TSlottablePropsFactory<
   {
@@ -146,6 +146,10 @@ The package exposes three essential parts: `createSlottableComponent`, the `useS
 ## Typescript
 
 The package includes typescript declarations, and can hint everything you need for creating and using components.
+
+## Additional utilities
+
+Since the package implements some useful utilities internally, it also exposes them. Such utilities are: `clsx` and `mergeProps`. The first is fully compatible with the popular `clsx` package, and the second is suitable for deep-merging objects.
 
 ## License
 

@@ -1,6 +1,6 @@
 {
   "name": "@zemd/react-slottable",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Foundation for component libraries with highly customizable approach",
   "main": "index.js",
   "module": "index.mjs",
